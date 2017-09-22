@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>trello</title>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <style>
+    /**{margin:0; padding:0;}*/
+    a:link{text-decoration:none; color:#000;}
+
+    .add_card{width:100px; border:1px solid #aaa;}
+    textarea{cursor:pointer;}
+    #mask { position:absolute; left:0; top:0; z-index:9000;  background-color:rgba(0,0,0,.8); display:none;}
+    .card_list{width:100%; background:#f00;}
+
+    
+    /*form*/
+    .board{display:flex;}
+    .list-wrapper{padding:7px; background:#E2E4E6; height:auto; min-height:30px;
+      width:195px; margin-right:5px;}
+
+    .list-wrapper{min-width:200px;}
+    /*form*/        
+  </style>
+</head>
+<body>
+<!--wrapper-->
+<div id="wrapper">
+  <!--board-->
+  <div class="board">
+    <!--list-wrapper-->
+    <div class="list-wrapper">
+      <form>
+        <input type="text" name="list-name" class="list-name" autofocus/>
+        <div>
+          <input type="button" name="list-add" class="list-add" value="save"/>
+          <a href="#" title="closeBtn">X</a>
+        </div>
+      </form>
+    </div>
+  <!--list-wrapper-->
+  </div>
+  <!--board-->
+</div>
+<!--wrapper-->
+<script>
+    $(document).ready(function(){
+      //version2
+      //create list-wrapper with list title
+      function createList(listNameInput){
+        var listWrapper = '<div class="list-wrapper">'
+        + '\n'+ '<h2 class="list-header">'+ listNameInput +'</h2>'+'\n'+ 
+        '<a href="#" class="open-card">add card</a>'+'</div>';
+
+        $('.board').prepend(listWrapper);
+      }
+
+      //start button !
+      $('.list-add').click(function(){
+        var listName = $('.list-name').val();
+        createList(listName);
+      })
+      
+      //add card
+      var $textarea = '<textarea class="textarea"></textarea>'
+      var $addCard = '<input type="button" value="ADD" class="addCard"/>' 
+      
+      $(document).on('click', '.open-card', function () {
+         var cardComposer = '<div class="card-composer">'+ $textarea + $addCard +'</div>';
+         $(this).parent('.list-wrapper').append(cardComposer);
+         $(this).hide();
+      });
+
+      //convert textarea value to card list
+      $(document).on('click', '.addCard' ,function(){
+        //$textarea.val() 로 하면 cannot find error
+        if($('.textarea').val() !== ''){
+          // chage tag to other tag
+          $(this).parent().parent().find('.list-header').append('<div class="card_list">' + $('.textarea').val() + '</div>');
+          $('.textarea').val('');
+         
+         /* array.push('<div class="card_list">' + $textarea.val() + '</div>');
+          //array.push('card_list'+ ':' + '<div class="card_list">' + $textarea.val() + '</div>');*/
+        }
+      })
+
+   })  
+  </script>
+</body>
+</html>

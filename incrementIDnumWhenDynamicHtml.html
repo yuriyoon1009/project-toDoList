@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>trello</title>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+ 
+</head>
+<body>
+   <div id="addresses">
+    <div class="address" id="address0">
+       <div class="street">
+           <input type="text" name="street[]" />
+       </div>
+       <div class="city">
+           <input type="text" name="city[]" />
+       </div>
+       <div class="addmoreadd">
+          <button type="button" class="addmore">Add More Address</button>
+       </div>
+    </div>
+  </div>
+<script>
+    $(document).ready(function(){
+      // increment id number 
+      // array.push array = [ {id:1, value:title, name:title}]
+      // var tag = ""  +tag = number(id number split) == number(array().id)
+      // trigger :{array[i].value}
+
+      //increment id number when dynamically appending elements  
+
+        var rowNum = 0;
+
+        $("body").on("click", ".addmore", function() {
+              rowNum++;
+              //console.log(rowNum);
+              var $address = $(this).parents('.address');
+              var nextHtml = $address.clone();
+
+              //<div class="address" id="address0">
+              //$(selector).attr(attribute,value);
+              nextHtml.attr('id', 'address' + rowNum);
+
+
+              //.rmbtn, nextHtml??
+              var hasRmBtn = $('.rmbtn', nextHtml).length > 0;
+              console.log($(nextHtml))
+             // console.log(hasRmBtn)
+            if (!hasRmBtn) {
+              var rm = "<button type='button' class='rmbtn'>Remove</button>"
+              //jquery eventhandler 2??
+              $('.addmoreadd', nextHtml).append(rm);
+            }
+              $address.after(nextHtml); 
+         });
+
+        $("body").on("click", ".rmbtn", function() {
+            $(this).parents('.address').remove();
+        });
+
+
+   })  
+  </script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>trello</title>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <style>
+    *{margin:0; padding:0;}
+    a:link{text-decoration:none; color:#000;}
+
+    /*form*/
+    .board{display:flex;}
+    .list-wrapper{padding:1rem; background:#E2E4E6; height:auto; min-height:30px;
+      width:195px; margin-right:5px;}
+    .list-card-parent{width:100%;}
+    .list-card-child{width:100%;  padding-bottom:10px;}
+    .list-card-child p{background:#fff; height:20px; line-height:20px;}
+
+    .textarea{cursor:pointer;}
+    #mask { position:absolute; left:0; top:0; z-index:9000;  background-color:rgba(0,0,0,.8); display:none;}
+    /*form*/        
+  </style>
+</head>
+<body>
+<!--wrapper-->
+<div id="wrapper">
+
+
+  <!--board-->
+  <div class="board">
+   
+
+    <!--list-wrapper-->
+    <div class="list-wrapper">
+      <form>
+        <input type="text" name="list-name" class="list-name listName" autofocus/>
+        <div>
+          <input type="button" name="list-add" class="list-add listAdd" value="save"/>
+          <a href="#" title="closeBtn">X</a>
+         
+        </div>
+      </form>
+    </div>
+  <!--list-wrapper-->
+
+  </div>
+  <!--board-->
+</div>
+<!--wrapper-->
+<script>
+    $(document).ready(function(){
+
+      var $board = $('.board');
+      var $listAdd = $('.listAdd');
+      var $listName = $('.listName');
+      
+      var $listCardParent = '<div class="list-card-parent listCardParent"></div>'
+      var $openCard = '<a href="#" class="open-card openCard">add card</a>'
+
+      //add card
+      //card-composer = parent element / textarea, addCard = child elements
+      var $textarea = '<textarea class="textarea"></textarea>'
+      var $addCard = '<input type="button" value="ADD" class="addCard"/>' 
+
+      var array = [];
+      //start button !
+      //write list title, eventHandler : $listAdd, event : click
+      $listAdd.click(function(){
+        var listName = $listName.val();
+        createList(listName);
+      })
+
+      //create list-wrapper with list title
+      function createList(listNameInput){
+        //$listName.val() != ''
+        if(listNameInput != ''){
+          var listWrapper = '<div class="list-wrapper">'
+          + '\n'+ '<h2 class="list-header">'+ listNameInput +'</h2>'+'\n'+ $listCardParent
+          + $openCard +'</div>';
+
+          $board.prepend(listWrapper);
+        }
+      }
+  
+      $(document).on('click', '.open-card', function () {
+         var cardComposer = '<div class="card-composer">'+ $textarea + $addCard +'</div>';
+         $(this).parent('.list-wrapper').append(cardComposer);
+         $(this).hide();
+      });
+
+      //convert textarea value to card list
+      $(document).on('click', '.addCard' ,function(){
+        if($('.textarea').val() !== ''){
+          // chage tag to other tag
+          $(this).parent().parent().find('.listCardParent').append('<div class="list-card-child listCardChild">' + '<p>' + $('.textarea').val() + '</p>' +'</div>');
+
+  
+          //array.push({id:1, value:$('.textarea').val(), name:$('.textarea').val()});
+         
+            array.push({value:$('.textarea').val(), name:$('.textarea').val()});
+            
+            $('.textarea').val('');
+           
+        }
+      });
+
+      //edit
+      $(document).on('click', '.listCardChild', function(){
+        //$('.board2').replaceWidth('<textarea>jjjjj</textarea>');
+        //alert(1)
+      
+        //listCardChild_1
+
+        //
+
+        // 1. add id=1
+        // 2. for listCardChild_[i] == array[i]{ array[i].value }
+        $(this).find('p').replaceWith('<textarea class="list-card-edit listCardEdit">'+ array[0].value +'</textarea>');
+      })
+
+      // var $array = [];
+      // $array.push(newjQueryElem);
+      //var $openCard = $('.openCard')
+
+       /* array.push('<div class="card_list">' + $textarea.val() + '</div>');
+          //array.push('card_list'+ ':' + '<div class="card_list">' + $textarea.val() + '</div>');
+          listwrapper array[0]... array[n]
+          cardlist array
+        */
+
+      // edit & copy & move & archieve(position(list-wrapper number, list-card-child number))
+      // p tag to textarea class="list-card-edit"
+
+
+      //edit
+      $(document).on('click', '.listCardChild', function(){
+        //$('.board2').replaceWidth('<textarea>jjjjj</textarea>');
+        //alert(1)
+      
+
+        $(this).find('p').replaceWith('<textarea class="list-card-edit listCardEdit">'+  +'</textarea>');
+      })
+
+
+      /*var trello = [
+            {
+              'listWrapper_id' : 1,
+              'listChild' : [
+                    {
+                      id : 1,
+                      value : 'title',
+                      name : 'title',
+                    },
+                    {
+                      id : 2,
+                      value : 'title',
+                      name : 'title',
+                    },
+
+              ],
+            },
+            {
+              'listWrapper_id' : 2,
+              'listChild' : [
+                  {
+                    id : 1,
+                    value : 'title',
+                    name : 'title',
+                  },
+                  {
+                    id : 2,
+                    value : 'title',
+                    name : '외근/출장으로 인해 신청합니다.',
+                  },
+              ],
+            }
+      ]*/
+
+
+
+   })  
+  </script>
+</body>
+</html>
