@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>trello</title>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script>
+  	$(document).ready(function(){
+  		// responsive
+
+  		   // 메뉴들 부분
+                var menus = [
+                    {
+                        'id' : 1,
+                        'name': '김밥',
+                        'available' : 0,
+                        'apply_count': 20,
+                        'apply_reasons' : [],
+                    },
+                    {
+                        'id' : 2,
+                        'name': '샌드위치',
+                        'available' : 20,
+                        'apply_count': 0,
+                        'apply_reasons' : [],
+                    },
+                    {
+                        'id' : 3,
+                        'name': '샐러드',
+                        'available' : 20,
+                        'apply_count': 0,
+                        'apply_reasons' : [],
+                    },
+                ];
+
+               
+                // 메뉴 세팅
+
+                for(var i in menus) {
+                   //if(typeof menus == 'object'){
+                        //var menu = menus[i];
+                        //$('#foodName'+menu.id).html(menu.name);
+                        //$('#foodCount'+menu.id).html(menu.available);
+                        //$('#ppl'+menu.id).html(menu.apply_count);
+                  // }
+
+                  //console.log(menus[i]);
+                  var menu = menus[i];
+
+                  //console.log(menu);
+                  console.log(menu);
+
+                  $('#foodName' + menu.id).html(menu.name);
+                  $('#foodCount' + menu.id).html(menu.available);
+                  $('#ppl' + menu.id).html(menu.apply_count);
+                }
+
+                // 옵션세팅
+              /*  var $menuSelect = $('#menuSelect');
+                for(var i in options) {
+                    if(typeof options == 'object'){
+                        var option = options[i];
+                        $menuSelect.append('<option value="'+option.value+'">'+option.name+'</option>');
+                    }
+                    if(i == (options.length-1)) break;
+                }*/
+
+
+
+  	})
+  </script>
+</head>
+<body>
+	<div id="foodPopupApplyWrap">
+			<section class="s2 foodMenu">
+				<h3>메뉴 선택</h3>
+					<article class="menuSection" data-id="1">
+						<div>
+							<p class="tit">메뉴 1.</p>
+							<p id="foodName1" class="FoodName"></p>
+							<p class="FoodCnt">남은 수량&nbsp;<span id="foodCount1"></span></p>
+							<p class="ppl1">신청 한 사람</p>
+						</div>
+					</article>
+					<article class="menuSection" data-id="2">
+						<div>
+							<p class="tit">메뉴 2.</p>
+							<p id="foodName2" class="FoodName"></p>
+							<p class="FoodCnt">남은 수량&nbsp;<span id="foodCount2"></span></p>
+							<p class="ppl2">신청 한 사람</p>
+						</div>
+					</article>
+					<article class="menuSection" data-id="3">
+						<div>	
+							<p class="tit">메뉴 3.</p>
+							<p id="foodName3" class="FoodName"></p>
+							<p class="FoodCnt">남은 수량&nbsp;<span id="foodCount3"></span></p>
+							<p class="ppl3">신청 한 사람</p>
+						</div>
+					</article>
+		    </section>							
+	</div>
+</body>
+</html>

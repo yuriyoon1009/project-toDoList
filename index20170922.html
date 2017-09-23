@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>trello</title>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <style>
+     
+  </style>
+</head>
+<body>
+     <div id="addresses">
+
+       <!-- <div class="address" id="address0">
+          <div class="street">
+            <input type="text" name="street[]" />
+          </div>
+          <div class="addmoreadd">
+            <button type="button" class="addmore">Add More Address</button>
+          </div>
+        </div>
+        -->
+
+        <button type="button" class="addmore">Add More Address</button>
+    </div>
+  
+<script>
+    $(document).ready(function(){
+        //dynamic html
+        //change data-id
+        //array(id:row, name:"", value:)
+        var rowNum = 0;
+        var arrays = [];
+        //var $address = '<div class="address" id="address"></div>'
+        $('body').on('click','.addmore',function(){
+            rowNum++
+            //var $aa = $(this).parents('.address');
+            //$('body').before('<div class="address" id="address0"></div>'.clone());
+
+            //var a = $('.address').attr('id', 'address'+ rowNum);
+            //console.log(a)
+
+                        
+            //nextHtml.attr('id', 'address' + rowNum);
+            
+            $('#addresses').after('<div class="address" data-id='+rowNum+"><input type='test'/>+</div>");
+            arrays.push({'id':rowNum});
+        });
+
+        var currentlySelected = ''
+        //clcik
+        $('body').on('click','.address',function(){
+            currentlySelected = $(this).data('id');
+            for(var i in arrays){
+              if(arrays[i].id == currentlySelected){
+                alert(arrays[i].id);
+                //console.log(selectedMenu)
+              }
+            }
+        })
+
+    })
+</script>
+</body>
+</html>
