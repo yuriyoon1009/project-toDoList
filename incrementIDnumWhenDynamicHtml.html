@@ -41,14 +41,30 @@
               //$(selector).attr(attribute,value);
               nextHtml.attr('id', 'address' + rowNum);
 
-
-              //.rmbtn, nextHtml??
-              var hasRmBtn = $('.rmbtn', nextHtml).length > 0;
-              console.log($(nextHtml))
+             // console.log($('.rmbtn').length)
+             // console.log($('.rmbtn', nextHtml).length)
              // console.log(hasRmBtn)
+             // console.log(hasRmBtn)
+
+             // 실행 안 됨
+             // if(false)false
+
+             // 실행 됨
+             // if(!false)true
+
+             //if(!true)false
+
+             //1. hasRmBtn = false 왜냐하면 nextHtml 안데 rmbtn 동적 태그 없음. 
+             //2. if(!false) 실행
+             //3. nextHtml 안의 addmoreredd 에 rm 동적 태그
+             //4. hasRmBtn = true  length가 1이기 때문에
+             //5. if(!true) 실행 안 됨 -끝-
+         
+              var hasRmBtn = $('.rmbtn', nextHtml).length > 0;
+         
             if (!hasRmBtn) {
               var rm = "<button type='button' class='rmbtn'>Remove</button>"
-              //jquery eventhandler 2??
+            
               $('.addmoreadd', nextHtml).append(rm);
             }
               $address.after(nextHtml); 

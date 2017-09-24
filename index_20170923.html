@@ -43,6 +43,7 @@
     </div>
   <!--list-wrapper-->
 
+    <input type="button" value="copy listWrapper" class="copyListWrpper"/>
   </div>
   <!--board-->
 </div>
@@ -54,6 +55,7 @@
       var $listAdd = $('.listAdd');
       var $listName = $('.listName');
       
+      var $cardCount = '<div class="cardCount"></div>'
       var $listCardParent = '<div class="list-card-parent listCardParent"></div>'
       var $openCard = '<a href="#" class="open-card openCard">add card</a>'
 
@@ -67,7 +69,10 @@
       //write list title, eventHandler : $listAdd, event : click
       $listAdd.click(function(){
         var listName = $listName.val();
+        
         createList(listName);
+
+        $listName.val('');
       })
 
       //create list-wrapper with list title
@@ -75,10 +80,12 @@
         //$listName.val() != ''
         if(listNameInput != ''){
           var listWrapper = '<div class="list-wrapper">'
-          + '\n'+ '<h2 class="list-header">'+ listNameInput +'</h2>'+'\n'+ $listCardParent
+          + '\n'+ '<h2 class="list-header">'+ listNameInput +'</h2>'+ $cardCount +'\n'+ $listCardParent
           + $openCard +'</div>';
 
           $board.prepend(listWrapper);
+
+
         }
       }
   
@@ -94,15 +101,20 @@
 
       //convert textarea value to card list
       $(document).on('click', '.addCard', function(){
-        if($('.cardTextarea').val() !== ''){
+        if($(this).prev().val() !== ''){
 
           rowNum++;
           // chage tag to other tag
-          $(this).parent().parent().find('.listCardParent').append('<div class="list-card-child listCardChild" data-id='+rowNum+'>' + '<p>' + $('.cardTextarea').val() + '</p>' +'</div>');
+          $(this).parent().parent().find('.listCardParent').append('<div class="list-card-child listCardChild" data-id='+rowNum+'>' + '<p>' + $(this).prev().val() + '</p>' +'</div>');
 
-          arrays.push({id:rowNum, value:$('.cardTextarea').val(),name:$('.cardTextarea').val()})
+          arrays.push({id:rowNum, value:$(this).prev().val(),name:$(this).prev().val()})
             
-            $('.cardTextarea').val('');
+            //array.push({id:1, value:$('.textarea').val(), name:$('.textarea').val()});
+         
+            // array.push({value:$(this).prev().val(), name:$(this).prev().val()});
+            $('.cardCount').html(arrays.length)
+            
+            $(this).prev().val('');
         }
       });
 
@@ -114,103 +126,56 @@
 
           for(var i in arrays){
             
-            if(arrays[i].id == currentlySelected){
-         
-                $(this).find('p').replaceWith('<textarea class="list-card-edit listCardEdit">'+arrays[i].value+'</textarea>');
+              if(arrays[i].id == currentlySelected){
+           
+                  $(this).find('p').replaceWith('<textarea class="list-card-edit listCardEdit">'+arrays[i].value+'</textarea>');
 
-                var hasSaveBtn = $('.saveBtn', $(this) ).length > 0;
+                  var hasSaveBtn = $('.saveBtn', $(this) ).length > 0;
 
-                if(!hasSaveBtn){
-                  var $saveBtn = "<input type='button' value='Save' name='Save' class='saveBtn'/>"
-            
-                  $(this).append($saveBtn);
-                }
-            }
+                  if(!hasSaveBtn){
+                    var $saveBtn = "<input type='button' value='Save' class='saveBtn'/>"
+              
+                    $(this).append($saveBtn);
+                  }
+              }
           }
+        })
 
         //save
         $(document).on('click','.saveBtn',function(){
-          // replaceWith textarea to p
-          // 
+         
+           console.log($(this).prev())
 
+           $(this).prev().replaceWith('<p>'+$(this).prev().val()+'</p>')
+        });
 
-        })          
+        //copy
+        $(document).on('click','.copyListWrpper', function(){
+          $('body').html(arrays[0].id)
+        })  
 
+        //remove
 
-    })
+         // $('textarea').replaceWith('<p>a</p>')
+          // replaceWith
+          //p tag to textarea   textarea to p tag
+          //console.log($(this).parent())
 
-      //save edit
+          //$('.listCardEdit').replaceWith('<p></p>')
+          //$(this).prev().replaceWith('<p></p>')
+  
+              
+          //for(var i in arrays){
+          //  if(arrays[i].id == selected){
+          //    $().replaceWith('<p>kk</p>');
+          //  }
+          //}
 
+          //console.log($(this).prev())
+          //$(this).prev().replaceWith('<p></p>')
+          //$(this).parent().data('id');
 
-
-      //$('.board2').replaceWidth('<textarea>jjjjj</textarea>');
-        //alert(1)
-      
-        //listCardChild_1
-
-        //
-
-        // 1. add id=1
-        // 2. for listCardChild_[i] == array[i]{ array[i].value }
-       // $(this).find('p').replaceWith('<textarea class="list-card-edit listCardEdit">'+ array[i].value +'</textarea>');
-
-      // var $array = [];
-      // $array.push(newjQueryElem);
-      //var $openCard = $('.openCard')
-
-       /* array.push('<div class="card_list">' + $textarea.val() + '</div>');
-          //array.push('card_list'+ ':' + '<div class="card_list">' + $textarea.val() + '</div>');
-          listwrapper array[0]... array[n]
-          cardlist array
-        */
-
-      // edit & copy & move & archieve(position(list-wrapper number, list-card-child number))
-      // p tag to textarea class="list-card-edit"
-
-
-      //edit
-     // $(document).on('click', '.listCardChild', function(){
-        //$('.board2').replaceWidth('<textarea>jjjjj</textarea>');
-        //alert(1)
-
-       // $(this).find('p').replaceWith('<textarea class="list-card-edit listCardEdit">'+  +'</textarea>');
-     // })
-
-
-      /*var trello = [
-            {
-              'listWrapper_id' : 1,
-              'listChild' : [
-                    {
-                      id : 1,
-                      value : 'title',
-                      name : 'title',
-                    },
-                    {
-                      id : 2,
-                      value : 'title',
-                      name : 'title',
-                    },
-
-              ],
-            },
-            {
-              'listWrapper_id' : 2,
-              'listChild' : [
-                  {
-                    id : 1,
-                    value : 'title',
-                    name : 'title',
-                  },
-                  {
-                    id : 2,
-                    value : 'title',
-                    name : '외근/출장으로 인해 신청합니다.',
-                  },
-              ],
-            }
-      ]*/
-
+        
 
 
    })  

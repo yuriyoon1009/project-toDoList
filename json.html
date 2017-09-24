@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+  <meta charset="UTF-8">
+  <title>trello</title>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <style>
+    *{margin:0; padding:0;}
+
+    #foodPopupApplyWrap{width:80%; margin:1rem auto 0; }
+    /*data-id =1,2,3*/
+    .menuSection{background:orange; border-bottom:1px solid #fff;
+      padding:1rem;}
+
+    .foodName, span{color:#fff; font-weight:900; font-size:2rem;}
+    .selectTagWrapper{width:100%;}
+    #menuSelect{width:100%; height:30px;}
+    #menuSelect option{width:100%;}
+
+
+
+  </style>
+  <script>
+  	$(document).ready(function(){
+
+  		   // 메뉴들 부분
+                var menus = [
+                    {
+                        'id' : 1,
+                        'name': 'Sandwich',
+                        'available' : 0,
+                        'apply_count': 20,
+                        'apply_reasons' : [],
+                    },
+                    {
+                        'id' : 2,
+                        'name': 'Hamburger',
+                        'available' : 20,
+                        'apply_count': 0,
+                        'apply_reasons' : [],
+                    },
+                    {
+                        'id' : 3,
+                        'name': 'Salad',
+                        'available' : 20,
+                        'apply_count': 0,
+                        'apply_reasons' : [],
+                    },
+                ];
+
+                var options = [
+                    {
+                      'id':'a',
+                      'value':'Busy',
+                      'name':'Busy',
+                    },
+                    {
+                      'id':'b',
+                      'value':'Work outside',
+                      'name':'Work outside',
+                    },
+                    {
+                      'id':'c',
+                      'value':'Health',
+                      'name':'Health',
+                    },
+                    {
+                      'id':'e',
+                      'value':'etc',
+                      'name':'etc',
+                    }
+                ]
+
+
+                //setting menus
+                for(var i in menus){
+                  //html() : change the content of element
+
+                  var menu = menus[i];
+                  $('#foodName'+menu.id).html(menu.name);
+                  $('#foodCount'+menu.id).html(menu.available);
+                  $('#pplCount'+menu.id).html(menu.apply_count);
+
+                  //console.log(menus[i]);
+                  
+                  //$('#foodName'+menus[i].id).html(menus[i].name);
+                  //$('#foodCount'+menus[i].id).html(menus[i].available);
+                  //$('#pplCount'+menus[i].id).html(menus[i].apply_count);
+                }
+
+                //setting options
+                var $menuSelect = $('#menuSelect');
+                for(var i in options) {
+                    if(typeof options == 'object'){
+                        var option = options[i];
+                        $menuSelect.append('<option value="'+option.value+'">'+option.name+'</option>');
+                    }
+                    if(i == (options.length-1)) break;
+                }
+                // 옵션세팅 끝
+
+                var currentlySelectedMenu = ''
+
+                $('.menuSection').click(function(){
+                   currentlySelectedMenu = $(this).data('id');
+
+                    for(var i in menus){
+                      if(menus[i].id == currentlySelectedMenu){
+                          var selectedMenu = menus[i];
+                      }
+                    }
+                });
+
+                
+
+
+              
+                                
+                              
+
+  	})
+  </script>
+</head>
+<body>
+	<div id="foodPopupApplyWrap">
+			<section class="foodMenu">
+				<h3>Please, select one of menus</h3>
+					<div class="menuSection" data-id="1">
+						<div>
+							<p class="tit">Menu 1.</p>
+							<p id="foodName1" class="foodName"></p>
+							<p class="foodCnt">How many lunchbox left&nbsp;<span id="foodCount1"></span></p>
+							<p class="ppl">How many people apply for luchbox : <span id="pplCount1"></span></p>
+						</div>
+					</div>
+					<div class="menuSection" data-id="2">
+						<div>
+							<p class="tit">Menu 2.</p>
+							<p id="foodName2" class="foodName"></p>
+							<p class="foodCnt">How many luchbox left&nbsp;<span id="foodCount2"></span></p>
+							<p class="ppl">How many people apply for lunchbox : <span id="pplCount2"></span></p>
+						</div>
+					</div>
+					<div class="menuSection" data-id="3">
+						<div>	
+							<p class="tit">Menu 3.</p>
+							<p id="foodName3" class="foodName"></p>
+							<p class="foodCnt">How many luchbox left&nbsp;<span id="foodCount3"></span></p>
+							<p class="ppl">How many people apply for luchbox : <span id="pplCount3"></span></p>
+						</div>
+					</div>
+		  </section>
+      <section class="foodSelect">
+          <div class="selectTagWrapper">
+              <select id="menuSelect">
+                  <option value="menu" selected="selected">Why do you apply for lunchbox?</option>
+              </select>
+          </div>
+      </section>							
+	</div>
+</body>
+</html>
