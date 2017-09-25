@@ -43,15 +43,12 @@
     </div>
   <!--list-wrapper-->
 
-    <input type="button" value="copy listWrapper" class="copyListWrpper"/>
-    <div class="test" id="test1">
-
-    </div>
   </div>
   <!--board-->
 </div>
 <!--wrapper-->
 <script>
+      var arrays = [];
     $(document).ready(function(){
 
       var $board = $('.board');
@@ -100,7 +97,6 @@
 
 
       var rowNum = 0;
-      var arrays = [];
 
       //convert textarea value to card list
       $(document).on('click', '.addCard', function(){
@@ -161,84 +157,19 @@
           //  }
           //}
 
-          //console.log($(this).parent())
-          //$(this).parent().html('<p>arrays[i].value</p>')
-          //$(this).parent().data('id');
-           $(this).parent().html('<p>arrays[i].value</p>')
+          var id = $(this).parent('.listCardChild').data('id');
+          
+          for(var i in arrays){
+              if(arrays[i].id == id){
+          		arrays[i].value = $(this).prev().val();
+          		$(this).parent().html('<p>'+arrays[i].value+'</p>');
+          		break;
+          	}
+          }
+
         })  
 
         //remove
-
-
-
-
-
-
-
-
-        //edit
-        /*$(document).on('click', '.listCardChild', function(){
-          currentlySelected = $(this).data('id');
-
-          for(var i in arrays){
-            
-              if(arrays[i].id == currentlySelected){
-           
-                  $(this).find('p').replaceWith('<textarea class="list-card-edit listCardEdit">'+arrays[i].value+'</textarea>');
-
-                  var hasSaveBtn = $('.saveBtn', $(this) ).length > 0;
-
-                  if(!hasSaveBtn){
-                    var $saveBtn = "<input type='button' value='Save' class='saveBtn'/>"
-              
-                    $(this).append($saveBtn);
-                  }
-              }
-          }
-        })*/
-
-        //save
-       /* $(document).on('click','.saveBtn',function(){
-         
-           //console.log($(this).prev())
-
-           $(this).parents().html('<p>'+'aaa'+'</p>');
-        });
-
-        //copy
-        $(document).on('click','.copyListWrpper', function(){
-
-         
-          //$('body').html(arrays[0].id)
-          for(var i in arrays){
-            //$('body').html(arrays[i].name);
-            //$('#test'+arrays[i].id).html(arrays[i].name)
-
-            $('body').append('<div id=test'+arrays[i].id+'">'+arrays[i].name+'</div>');
-          }
-
-        })  */
-
-        //remove
-
-         // $('textarea').replaceWith('<p>a</p>')
-          // replaceWith
-          //p tag to textarea   textarea to p tag
-          //console.log($(this).parent())
-
-          //$('.listCardEdit').replaceWith('<p></p>')
-          //$(this).prev().replaceWith('<p></p>')
-  
-              
-          //for(var i in arrays){
-          //  if(arrays[i].id == selected){
-          //    $().replaceWith('<p>kk</p>');
-          //  }
-          //}
-
-          //console.log($(this).prev())
-          //$(this).prev().replaceWith('<p></p>')
-          //$(this).parent().data('id');
 
         
 
