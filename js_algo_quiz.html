@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!--<link rel="stylesheet" href="aspect_ratio.css">-->
+  <title>Megabrain coding test</title>
+</head>
+<body>
+<script>
+inputNumber(267723);
+
+//100000 - 999999
+function inputNumber(num){
+	
+	if(num >= 100000 && num <= 999999){
+		
+		
+		var numSplit = num;
+		var numArray = [];
+		//toString : Return the value of a String object:
+		var numObjectArray  = numSplit.toString().split('');
+
+		/*for(var i in numObjectArray){
+			
+			//numArray = ;
+			//console.log(numArray);
+			//numArray.push();
+			numArray.push(Number(numObjectArray[i]));
+			//console.log(numArray)
+		}*/
+
+		for(var i=0; i<= numObjectArray.length-1; i++){
+			var numObjectPush = Number(numObjectArray[i]);
+			numArray.push(numObjectPush);
+		}
+		
+
+	    var numArrayPlus= [];
+	   
+	    for(var k=0; k<2; k++){
+	    	numArrayPlus[k];
+	    }
+
+	    for(var n=0; n<=4; n+=2){
+	    	//var numnum = [];
+	    	numArrayPlus.push(numArray[n] + numArray[n+1]);
+	    	//numnum[1] = 
+	    }
+
+	    console.log(numArrayPlus);
+
+	    console.log(numObjectArray);
+
+
+		var numDecimal = [];
+
+		for(var q=0; q<2; q++){
+	    	console.log(numDecimal[q]);
+	    }
+
+	    for(var q=0; q<numObjectArray.length-1; q+=2){
+	    	numDecimal.push(numObjectArray[q] + numObjectArray[q+1])
+	    }
+
+	    var step3 = []
+	    //console.log(numDecimal)
+	    step3.push(numDecimal[2], numDecimal[0], numDecimal[1], numDecimal[1], numDecimal[2], numDecimal[0]);
+	    
+	    //step3.push(Number(numDecimal[0]))
+	    //step3.push(Number(numDecimal[1]))
+	    //step3.push(Number(numDecimal[1]))
+	    //step3.push(Number(numDecimal[2]))
+	    //step3.push(Number(numDecimal[0]))
+	    	//, numDecimal[0], numDecimal[1], numDecimal[1], numDecimal[2], numDecimal[0]))
+
+	    console.log(step3);
+
+	  //  for(var i)
+	   // console.log(decimalNum);
+
+//	    for(var i=0; i<=numObjectArray-1; i+=2){
+//	    	decimalNum.push(numObjectArray[i] + numObjectArray[i+1]);
+//	    }
+
+	    //console.log(decimalNum)
+	   /* var numSplit = [];
+	    for(var i=0; i<2; i++){
+	    	numSplit[i];
+	    }
+
+	    for(var k=0; k <= 2; k++){
+	    	numSplit.push(numObjectArray[k] + numObjectArray[k+1]);
+	    }
+
+	    var numSplitNum = [];
+	    for(var j=0; j<=numSplit.length-1; j++){
+	    	numSplitNum.push(Number(numSplit[j]));
+	    }
+
+	    console.log(numSplitNum);
+
+	    //numSplitNum[i]%*/
+	}else{
+		alert(false);
+	}
+	
+}
+
+
+
+
+
+
+</script>
+  <script>
+  	// beta v0.1
+// author: 임기완 (nyeok.inae@gmail.com)
+// 실행방법: authNumberConverter() 로 호출하면 됩니다.
+// 인자값으론 문제 명세에서도 나왔듯 100000~999999중 하나를 주세요
+
+
+
+var authNumberConverter = (function () {
+  /* 결과값이 두 자리 수일 때 변환될 알파벳 정의 */
+  var numToCharConfig = ['B', 'F', 'H', 'C', 'L', 'K', 'E', 'J', 'I'];
+
+  function main ( auth_number ) {
+    /* auth_number validation 시작 */
+    if(Object.prototype.toString.call(auth_number).slice(8, -1).toLowerCase() !== 'number') {
+      console.log('입력값은 숫자 값만 허용 됩니다.');
+      return;
+    }
+    if (Math.floor(auth_number) !== auth_number){
+      console.log('입력값은 정수 값만 허용 됩니다.');
+      return;
+    } 
+    if(auth_number < 100000 || auth_number > 999999) {
+      console.log('입력값이 처리가능 범위를 벗어났습니다.');
+      return;
+    }
+    /* auth_number validation 끝 */
+
+    // console.log 구문들은 debug 용으로 임시 삽입.
+    var step1 = makeStep1( auth_number );
+    // console.log('step1:', step1);
+    var step2 = makeStep2( step1 );
+    // console.log('step2:', step2);
+    var step3 = makeStep3( step1, step2 );
+    // console.log('step3:', step3);
+    var shuffledStep3 = shuffle( step3 );
+    // console.log('shuffledStep3', shuffledStep3);
+    var characterizedStep3 = digitCharact( shuffledStep3 );
+    // console.log('characterizedStep3', characterizedStep3);
+    return characterizedStep3.join('');
+  }
+
+  /* 좀더 범용적인 이름으로 renaming이 필요한 함수 */
+  /* 1단계 상태를 만드는 함수 */
+  function makeStep1 ( n ) {
+    /* n을 2자리 수 3개로 나누는 함수 입니다. */
+    /* n이 몇 자리 수인지는 신경쓰지 않습니다. */
+    /* n이 100000~999999이기 때문에 string 형변환을 이용했습니다. */
+    /* n이 99999 이하라면 10의 승수로 나누어 소수점 이하를 버리는 방법을 써야합니다. */
+    var numStr = n.toString();
+    var result = [];
+    for (var i = 0; i <= 4; i += 2) {
+      result.push( Number(numStr[i] + numStr[i+1]) );
+    }
+    return result;
+  }
+
+  /* 좀더 범용적인 이름으로 renaming이 필요한 함수 */
+  /* 2단계 상태를 만드는 함수 */
+  function makeStep2 ( numArr ) {
+    var result = [];
+
+    /* 3회 반복 */
+    for (var i = 0; i < numArr.length; i += 1) {
+      /* 10의 자리와 1의 자리 수를 합산하는 함수 add2Digit을 호출 */
+      result.push( add2Digit(numArr[i]) );
+    }
+    return result;
+  }
+
+  /* 10의 자리와 1의 자리 수를 합산하는 함수 add2Digit을 호출 */
+  function add2Digit ( n ) {
+    /* n은 0~99. */
+    /* 10의 승수로 나누어 소수점 이하를 버리는 방법을 사용합니다. */
+    var digit10 = Math.floor( n / 10 ); // 여기서 10은 10의 1제곱, Math.pow(10, 1)을 의미.
+    var digit01 = n - (digit10 * 10);
+    return digit10 + digit01;
+  }
+
+  /* 좀더 범용적인 이름으로 renaming이 필요한 함수 */
+  /* 3단계 상태를 만드는 함수 */
+  function makeStep3 ( arrStep1, arrStep2 ) {
+    var result = [];
+    for(var i = 2; i >= 1; i -= 1) {
+      result.push( makeStep3Sub(arrStep1, arrStep2, i) );
+    }
+    result = result[0].concat(result[1]);
+    return result;
+  }
+
+  /* 좀더 범용적인 이름으로 renaming이 필요한 함수 */
+  /* 3단계 상태를 만드는 함수를 위한 sub routine */
+  function makeStep3Sub ( arrStep1, arrStep2, orderNum ) {
+    /* orderNum을 통해 본 함수의 호출이 첫번째 호출인지 두번째 호출인지 판단 */
+    /* 첫번째 호출일 경우 3단계의 앞 세자리 digit을 만들어 반환 */
+    /* 두번째 호출일 경우 3단계의 뒤 세자리 digit을 만들어 반환 */
+    var result = [];
+    var idxForArrStep1 = 0;
+    for(var i = 0; i < 3; i += 1){
+      idxForArrStep1 = (i + orderNum) % 3;
+
+      if(arrStep2[i] === 0){
+        /* 0으로 나누기에 대한 처리 지침이 따로 없어서 */
+        /* 몫이 무한대일때의 나머지를 0이라고 임의 설정 함 */
+        result.push( 0 );
+      } else {
+        result.push( arrStep1[idxForArrStep1] % arrStep2[i] );
+      }
+    }
+    return result;
+  }
+
+  /* digit 위치 치환하는 함수 */
+  function shuffle ( arrStep3 ) {
+    return [ arrStep3[1], arrStep3[4], arrStep3[2], arrStep3[3], arrStep3[0], arrStep3[5] ];
+  }
+
+  /* 두자리 수 문자로 치환하는 함수 */
+  function digitCharact ( sStep3 ) {
+    var currentDigit;
+    for(var i = 0; i < sStep3.length; i += 1){
+      currentDigit = sStep3[i];
+      if(currentDigit >= 10) {
+        sStep3[i] = numToCharConfig[currentDigit - 10];
+      }
+    }
+    return sStep3;
+  }
+
+  return main;
+})();
+
+  </script>
+</body>
+</html>

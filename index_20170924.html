@@ -42,7 +42,7 @@
       </form>
     </div>
   <!--list-wrapper-->
-
+  <p>a</p>
   </div>
   <!--board-->
 </div>
@@ -58,6 +58,9 @@
       var $cardCount = '<div class="cardCount"></div>'
       var $listCardParent = '<div class="list-card-parent listCardParent"></div>'
       var $openCard = '<a href="#" class="open-card openCard">add card</a>'
+
+      
+      //$('.list-card-parent').clone().appendTo( $('p') )
 
       //add card
       //card-composer = parent element / textarea, addCard = child elements
@@ -156,7 +159,6 @@
           //    $().replaceWith('<p>kk</p>');
           //  }
           //}
-
           var id = $(this).parent('.listCardChild').data('id');
           
           for(var i in arrays){
@@ -166,11 +168,18 @@
           		break;
           	}
           }
-
         })  
 
         //remove
 
+        //$('.list-name').clone().append('body');
+        // clone !
+        //$('body').append('<p class="aa">testtesttest</p>')
+        //$('.aa').clone().appendTo('body')
+
+
+        // copy all cards and copy specific card 
+        
         
 
 
